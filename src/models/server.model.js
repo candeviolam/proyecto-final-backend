@@ -1,6 +1,6 @@
 import express from "express";
 import { configDotenv } from "dotenv";
-import encuestaRouter from "../routes/encuesta.routes.js";
+/* import encuestaRouter from "../routes/encuesta.routes.js"; */
 import adminRouter from "../routes/admin.routes.js";
 
 configDotenv();
@@ -21,7 +21,7 @@ class Server {
     this.app.use(express.json());
   }
   routes() {
-    this.app.use("/api/encuesta", encuestaRouter); //con ctrl + espacio para que me diga de donde importarla y me la importe arriba
+    /* this.app.use("/api/encuesta", encuestaRouter); //con ctrl + espacio para que me diga de donde importarla y me la importe arriba */
     this.app.use("/api/admin", adminRouter);
   }
 }

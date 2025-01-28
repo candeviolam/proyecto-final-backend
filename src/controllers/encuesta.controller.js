@@ -1,4 +1,4 @@
-//en 'controllers' se define la logica de la ruta
+/* //en 'controllers' se define la logica de la ruta
 
 const saludo = (req, res) => {
   res.json({
@@ -8,4 +8,4 @@ const saludo = (req, res) => {
 
 export { saludo };
 
-
+ */

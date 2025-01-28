@@ -1,9 +1,43 @@
-import { login, register } from "../controllers/admin.controller.js";
 import { Router } from "express";
+import { body } from "express-validator";
+import { register, login } from "../controllers/admin.controller.js";
 
 const router = Router();
 
-router.post("/login", login);
-router.post("/register", register);
+//Ruta  para el registro con validaciones
+router.post(
+  "/register",
+  [
+    //Validación del email
+    body("email").isEmail().withMessage("Debe ingresar un email válido"),
+
+    //Validación de contraseña
+    body("contraseña")
+      .isLength({ min: 6 })
+      .withMessage("La contraseña debe contener al menos 6 caracteres")
+      .matches(/[a-z]/)
+      .withMessage("La contraseña debe contener al menos una letra minúsucla")
+      .matches(/[0-9]/)
+      .withMessage("La contraseña debe contener al menos un número"),
+
+    //Validación del nombre
+    body("nombre")
+      .notEmpty()
+      .withMessage("Debe completar el nombre")
+      .isLength({ min: 3 })
+      .withMessage("El nombre debe tener al menos 3 caracteres"),
+  ],
+  register
+);
+
+//Ruta para el login con validaciones
+router.post(
+  "/login",
+  [
+    body("email").isEmail().withMessage("Debe ingresar un email válido"),
+    body("contraseña").notEmpty().withMessage("Debe ingresar la contraseña"),
+  ],
+  login
+);
 
 export default router;
