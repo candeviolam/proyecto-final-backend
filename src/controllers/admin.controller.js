@@ -3,12 +3,12 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import Usuario from "../models/usuario.model.js"; //Modelo de Usuario
 
-const { resultadoDeValidaciones } = pkg;
+const { validationResult } = pkg;
 
 //Registro
 const register = async (req, res) => {
   //Verificar si hay errores de validación
-  const errores = resultadoDeValidaciones(req);
+  const errores = validationResult(req);
   if (!errores.isEmpty()) {
     return res.status(400).json({ errors: errores.array() }); //devuelve los errores al cliente
   }
@@ -43,14 +43,19 @@ const register = async (req, res) => {
 
     res.json({ message: "Resgistro exitoso", token });
   } catch (error) {
-    res.status(500).json({ message: "Error en el servidor", error });
+    //imprime el error en la terminal para verlo más detallado
+    console.error("Error en el registro:", error);
+    //muestra el msj del error en Postman
+    res
+      .status(500)
+      .json({ message: "Error en el servidor", error: error.message });
   }
 };
 
 //Login
 const login = async (req, res) => {
   //Verificar si hay errores de validación
-  const errores = resultadoDeValidaciones(req);
+  const errores = validationResult(req);
   if (!errores.isEmpty()) {
     return res.status(400).json({ errors: errores.array() });
   }
@@ -84,7 +89,9 @@ const login = async (req, res) => {
 
     res.json({ message: "Has iniciado sesión correctamente", token });
   } catch (error) {
-    res.status(500).json({ message: "Error en el servidor", error });
+    res
+      .status(500)
+      .json({ message: "Error en el servidor", error: error.message });
   }
 };
 
