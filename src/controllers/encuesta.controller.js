@@ -99,6 +99,24 @@ const eliminarEncuesta = async (req, res) => {
   }
 };
 
+//Responder encuestas de manera anónima o con email
+const responderEncuesta = async (req, res) => {
+  try {
+    const { email, respuestas } = req.body;
+    const encuesta = await Encuesta.findById(req.params.id);
+
+    if (!encuesta)
+      return res.status(404).json({ message: "Encuesta no encontrada" });
+
+    encuesta.respuestas.push({ email, respuestas });
+    await encuesta.save();
+
+    res.json({ message: "Respuesta registrada" });
+  } catch (error) {
+    res.status(500).json({ message: "Error al responder encuesta" });
+  }
+};
+
 export {
   crearEncuesta,
   obtenerEncuestas,

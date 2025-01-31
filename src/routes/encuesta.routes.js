@@ -7,6 +7,7 @@ import {
   eliminarEncuesta,
   obtenerEncuestaPorId,
   obtenerEncuestasPorCategoria,
+  responderEncuesta, 
 } from "../controllers/encuesta.controller.js";
 import { verificarToken } from "../middlewares/autenticacionMiddleware.js";
 
@@ -58,5 +59,8 @@ router.put(
 
 //Ruta para eliminar una encuesta por ID
 router.delete("/eliminar/:id", eliminarEncuesta);
+
+//Ruta para permitir responder encuestas de manera anónima o por email
+router.post("/:id/responder", responderEncuesta); 
 
 export default router;
