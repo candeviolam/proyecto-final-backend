@@ -1,6 +1,10 @@
 import { Router } from "express";
 import { body } from "express-validator";
 import { register, login } from "../controllers/admin.controller.js";
+import {
+  verificarToken,
+  esAdmin,
+} from "../middlewares/autenticacionMiddleware.js"; //importar el middleware
 
 const router = Router();
 
@@ -39,5 +43,10 @@ router.post(
   ],
   login
 );
+
+//Ruta protegida para acceder al panel de administración
+router.get("/panel", verificarToken, esAdmin, (req, res) => {
+  res.json({ message: "Bienvenido al panel de administración" });
+});
 
 export default router;
