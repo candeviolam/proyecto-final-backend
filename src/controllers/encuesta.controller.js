@@ -1,4 +1,13 @@
+import nodemailer from "nodemailer";
 import Encuesta from "../models/encuesta.model.js";
+
+const envioCorreo = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    usuario: process.env.EMAIL_USER,
+    contraseña: process.env.EMAIL_PASS,
+  },
+});
 
 //Crear nueva encuesta
 const crearEncuesta = async (req, res) => {
@@ -111,7 +120,20 @@ const responderEncuesta = async (req, res) => {
     encuesta.respuestas.push({ email, respuestas });
     await encuesta.save();
 
-    res.json({ message: "Respuesta registrada" });
+    //Enviar email
+    const opcionesCorreo = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: `Respuestas enviadas para la encuesta: ${encuesta.nombre}`,
+      text: `Tus respuestas: ${JSON.stringify(respuestas)},`,
+    };
+
+    envioCorreo.sendMail(opcionesCorreo, (error, info) => {
+      if (error) console.error("Error al enviar email", error);
+      else console.log("Email enviado:", info.response);
+    });
+
+    res.json({ message: "Respuesta registrada y email enviado" });
   } catch (error) {
     res.status(500).json({ message: "Error al responder encuesta" });
   }
@@ -124,4 +146,5 @@ export {
   obtenerEncuestasPorCategoria,
   modificarEncuesta,
   eliminarEncuesta,
+  responderEncuesta,
 };
