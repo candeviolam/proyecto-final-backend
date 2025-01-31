@@ -35,6 +35,30 @@ const obtenerEncuestas = async (req, res) => {
   }
 };
 
+//Obtener una encuesta por ID
+const obtenerEncuestaPorId = async (req, res) => {
+  try {
+    const encuesta = await Encuesta.findById(req.params.id);
+
+    if (!encuesta)
+      return res.status(404).json({ message: "Encuesta no encontrada" });
+
+    res.json(encuesta);
+  } catch (error) {
+    res.status(500).json({ message: "Error al obtener la encuesta" });
+  }
+};
+
+//Obtener encuestas por categoría
+const obtenerEncuestasPorCategoria = async (req, res) => {
+  try {
+    const encuestas = await Encuesta.find({ categoria: req.params.nombre });
+    res.json(encuestas);
+  } catch (error) {
+    res.status(500).json({ message: "Error al filtrar encuestas" });
+  }
+};
+
 //Modificar una encuesta
 const modificarEncuesta = async (req, res) => {
   const { id } = req.params; //obtener el ID de la encuesta desde los parámetros de la URL
@@ -75,4 +99,11 @@ const eliminarEncuesta = async (req, res) => {
   }
 };
 
-export { crearEncuesta, obtenerEncuestas, modificarEncuesta, eliminarEncuesta };
+export {
+  crearEncuesta,
+  obtenerEncuestas,
+  obtenerEncuestaPorId,
+  obtenerEncuestasPorCategoria,
+  modificarEncuesta,
+  eliminarEncuesta,
+};

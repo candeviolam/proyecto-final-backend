@@ -5,7 +5,10 @@ import {
   obtenerEncuestas,
   modificarEncuesta,
   eliminarEncuesta,
+  obtenerEncuestaPorId,
+  obtenerEncuestasPorCategoria,
 } from "../controllers/encuesta.controller.js";
+import { verificarToken } from "../middlewares/autenticacionMiddleware.js";
 
 const router = Router();
 
@@ -25,6 +28,12 @@ router.post(
 
 //Ruta para obtener todas las encuestas
 router.get("/obtener", obtenerEncuestas);
+
+//Ruta para ortener una encuesta específica por ID
+router.get("/:id", verificarToken, obtenerEncuestaPorId);
+
+//Ruta para obtener encuestas por categoría
+router.get("/categoria/:nombre", verificarToken, obtenerEncuestasPorCategoria);
 
 //Ruta para modificar una encuesta por ID
 //Validación de datos - opcional porque el campo puede ser omitido, pero si está presente, requerirá que no esté vacío y será obligatorio
