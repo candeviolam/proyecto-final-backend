@@ -4,7 +4,7 @@ import { register, login } from "../controllers/admin.controller.js";
 import {
   verificarToken,
   esAdmin,
-} from "../middlewares/autenticacionMiddleware.js"; //importar el middleware
+} from "../middlewares/autenticacion.middleware.js"; //importar el middleware
 
 const router = Router();
 

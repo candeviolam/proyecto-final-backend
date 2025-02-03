@@ -9,7 +9,7 @@ import {
   obtenerEncuestasPorCategoria,
   responderEncuesta, 
 } from "../controllers/encuesta.controller.js";
-import { verificarToken } from "../middlewares/autenticacionMiddleware.js";
+import { verificarToken } from "../middlewares/autenticacion.middleware.js";
 
 const router = Router();
 

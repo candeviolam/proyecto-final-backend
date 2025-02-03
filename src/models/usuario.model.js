@@ -11,7 +11,7 @@ const UsuarioSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  contraseña: {
+  contraseñaHasheada: {
     type: String,
     required: true,
   },

@@ -11,6 +11,10 @@ dotenv.config(); //para cargar las variables de entorno del archivo .env
 
 //Super Admin predefinido
 const crearSuperAdmin = async () => {
+  //console.log para ver si las variables se están leyendo bien
+  console.log("ADMIN_EMAIL", process.env.ADMIN_EMAIL);
+  console.log("ADMIN_PASSWORD", process.env.ADMIN_PASSWORD);
+
   const adminExistente = await Usuario.findOne({
     email: process.env.ADMIN_EMAIL,
   });
@@ -19,12 +23,12 @@ const crearSuperAdmin = async () => {
     const admin = new Usuario({
       nombre: "Super Admin",
       email: process.env.ADMIN_EMAIL,
-      contraseña: await bcrypt.hash(process.env.ADMIN_PASSWORD, 10),
+      contraseñaHasheada: await bcrypt.hash(process.env.ADMIN_PASSWORD, 10),
       rol: "admin",
     });
 
     await admin.save();
-    console.log("Super Admin creado");
+    console.log("Super Admin creado exitosamente");
   }
 };
 class Server {
