@@ -1,13 +1,28 @@
 import nodemailer from "nodemailer";
 import Encuesta from "../models/encuesta.model.js";
 
-const envioCorreo = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    usuario: process.env.EMAIL_USER,
-    contraseña: process.env.EMAIL_PASS,
-  },
-});
+//Función para enviar correos electrónicos
+const enviarCorreo = (email, asunto, contenido) => {
+  const envioDeCorreo = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      usuario: process.env.EMAIL_USER,
+      contraseña: process.env.EMAIL_PASS,
+    },
+  });
+
+  const opcionesCorreo = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: asunto,
+    text: contenido,
+  };
+
+  envioDeCorreo.sendMail(opcionesCorreo, (error, info) => {
+    if (error) console.error("Error al enviar correo", error);
+    else console.log("Correo enviado:" + info.response);
+  });
+};
 
 //Crear nueva encuesta
 const crearEncuesta = async (req, res) => {
@@ -120,20 +135,14 @@ const responderEncuesta = async (req, res) => {
     encuesta.respuestas.push({ email, respuestas });
     await encuesta.save();
 
-    //Enviar email
-    const opcionesCorreo = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: `Respuestas enviadas para la encuesta: ${encuesta.nombre}`,
-      text: `Tus respuestas: ${JSON.stringify(respuestas)},`,
-    };
+    //Llamar a la función para enviar el email con las repsuestas
+    enviarCorreo(
+      email, //Dirección de correo del usuario
+      `Respuestas enviadas para la encuesta: ${encuesta.nombre}`, //Asunto del correo
+      `Tus respuestas: ${JSON.stringify(respuestas)}` //Contenido del correo
+    );
 
-    envioCorreo.sendMail(opcionesCorreo, (error, info) => {
-      if (error) console.error("Error al enviar email", error);
-      else console.log("Email enviado:", info.response);
-    });
-
-    res.json({ message: "Respuesta registrada y email enviado" });
+    res.json({ message: "Respuesta registrada y correo enviado" });
   } catch (error) {
     res.status(500).json({ message: "Error al responder encuesta" });
   }
