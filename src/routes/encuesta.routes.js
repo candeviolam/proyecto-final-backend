@@ -7,15 +7,20 @@ import {
   eliminarEncuesta,
   obtenerEncuestaPorId,
   obtenerEncuestasPorCategoria,
-  responderEncuesta, 
+  responderEncuesta,
 } from "../controllers/encuesta.controller.js";
-import { verificarToken } from "../middlewares/autenticacion.middleware.js";
+import {
+  verificarToken,
+  esAdmin,
+} from "../middlewares/autenticacion.middleware.js";
 
 const router = Router();
 
-//Ruta para crear una nueva encuesta
+//Ruta para crear una nueva encuesta (protegida)
 router.post(
   "/crear",
+  verificarToken, //Verifica el token JWT
+  esAdmin, //Verifica si el usuario es administrador
   [
     //Validación de datos
     body("nombre").notEmpty().withMessage("El nombre es obligatorio"),
@@ -36,10 +41,12 @@ router.get("/:id", verificarToken, obtenerEncuestaPorId);
 //Ruta para obtener encuestas por categoría
 router.get("/categoria/:nombre", verificarToken, obtenerEncuestasPorCategoria);
 
-//Ruta para modificar una encuesta por ID
+//Ruta para modificar una encuesta por ID (protegida)
 //Validación de datos - opcional porque el campo puede ser omitido, pero si está presente, requerirá que no esté vacío y será obligatorio
 router.put(
   "/modificar/:id",
+  verificarToken,
+  esAdmin,
   [
     body("nombre")
       .optional()
@@ -57,10 +64,10 @@ router.put(
   modificarEncuesta
 );
 
-//Ruta para eliminar una encuesta por ID
-router.delete("/eliminar/:id", eliminarEncuesta);
+//Ruta para eliminar una encuesta por ID (protegida)
+router.delete("/eliminar/:id", verificarToken, esAdmin, eliminarEncuesta);
 
 //Ruta para permitir responder encuestas de manera anónima o por email
-router.post("/:id/responder", responderEncuesta); 
+router.post("/:id/responder", responderEncuesta);
 
 export default router;
