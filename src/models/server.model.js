@@ -29,6 +29,29 @@ const crearSuperAdmin = async () => {
 
     await admin.save();
     console.log("Super Admin creado exitosamente");
+  } else {
+    //Si el Super Admin existe, verificamos si la contraseña ha cambiado
+    const contraseñaAdminValida = await bcrypt.compare(
+      process.env.ADMIN_PASSWORD,
+      adminExistente.contraseñaHasheada
+    );
+
+    if (!contraseñaAdminValida) {
+      //Si la contraseña es diferente, la actualizamos
+      const nuevaContraseñaHasheada = await bcrypt.hash(
+        process.env.ADMIN_PASSWORD,
+        10
+      );
+
+      adminExistente.contraseñaHasheada = nuevaContraseñaHasheada;
+      await adminExistente.save();
+
+      console.log("Contraseña del Súper Admin actualizada correctamente");
+    } else {
+      console.log(
+        "La contraseña del Súper Admin es la misma, no se requiere actualización"
+      );
+    }
   }
 };
 class Server {
