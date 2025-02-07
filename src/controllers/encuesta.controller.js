@@ -20,7 +20,7 @@ const enviarCorreo = (email, asunto, contenido) => {
 
   envioDeCorreo.sendMail(opcionesCorreo, (error, info) => {
     if (error) console.error("Error al enviar correo", error);
-    else console.log("Correo enviado:" + info.response);
+    else console.log("Correo enviado:", info.response);
   });
 };
 
