@@ -3,6 +3,7 @@ import { body } from "express-validator";
 import {
   crearEncuesta,
   obtenerEncuestas,
+  obtenerEncuestasActivas,
   modificarEncuesta,
   eliminarEncuesta,
   obtenerEncuestaPorId,
@@ -34,6 +35,9 @@ router.post(
 
 //Ruta para obtener todas las encuestas
 router.get("/obtener", obtenerEncuestas);
+
+//Ruta para obtener solo encuestas activas
+router.get("/activas", obtenerEncuestasActivas);
 
 //Ruta para ortener una encuesta específica por ID
 router.get("/:id", verificarToken, obtenerEncuestaPorId);

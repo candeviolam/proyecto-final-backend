@@ -17,7 +17,7 @@ const enviarCorreo = async (email, asunto, contenido) => {
     from: process.env.EMAIL_USER,
     to: email,
     subject: asunto,
-    html: contenido, // html en lugar de text para que no me devuelva texto plano, sino algo más customizable
+    html: contenido,
   };
 
   try {
@@ -60,6 +60,18 @@ const obtenerEncuestas = async (req, res) => {
     res
       .status(500)
       .json({ message: "Error al obtener encuestas", error: error.message });
+  }
+};
+
+//Obtener solo encuestas activas
+const obtenerEncuestasActivas = async (req, res) => {
+  try {
+    const encuestas = await Encuesta.find({ estado: true });
+    res.json(encuestas);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error al obtener encuestas activas", error });
   }
 };
 
@@ -183,6 +195,7 @@ const responderEncuesta = async (req, res) => {
 export {
   crearEncuesta,
   obtenerEncuestas,
+  obtenerEncuestasActivas,
   obtenerEncuestaPorId,
   obtenerEncuestasPorCategoria,
   modificarEncuesta,
