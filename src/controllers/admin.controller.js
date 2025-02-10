@@ -62,6 +62,10 @@ const login = async (req, res) => {
 
   const { email, contraseña } = req.body;
 
+  //Un log para ver que los datos estén llegando
+  console.log("Email:", email);
+  console.log("Constraseña:", contraseña);
+
   try {
     //Verificar si el usuario existe
     const usuario = await Usuario.findOne({ email });
@@ -74,7 +78,7 @@ const login = async (req, res) => {
     //Verificar si la contraseña es correcta
     const contraseñaValida = await bcrypt.compare(
       contraseña,
-      usuario.contraseña
+      usuario.contraseñaHasheada
     );
     if (!contraseñaValida) {
       return res.status(400).json({

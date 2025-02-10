@@ -20,7 +20,7 @@ router.post(
       .isLength({ min: 6 })
       .withMessage("La contraseña debe contener al menos 6 caracteres")
       .matches(/[a-z]/)
-      .withMessage("La contraseña debe contener al menos una letra minúsucla")
+      .withMessage("La contraseña debe contener al menos una letra")
       .matches(/[0-9]/)
       .withMessage("La contraseña debe contener al menos un número"),
 

@@ -143,14 +143,27 @@ const eliminarEncuesta = async (req, res) => {
 const responderEncuesta = async (req, res) => {
   try {
     const { email, respuestas } = req.body;
+
+    //Validación de respuestas
+    if (!Array.isArray(respuestas) || respuestas.length === 0) {
+      return res
+        .status(400)
+        .json({ message: "Las respuestas son obligatorias" });
+    }
+
     const encuesta = await Encuesta.findById(req.params.id);
 
     if (!encuesta) {
       return res.status(404).json({ message: "Encuesta no encontrada" });
     }
 
-    encuesta.respuestas.push({ email: email || "Anónimo", respuestas });
-    await encuesta.save();
+    //Agregar "usuarioId" aunque sea null si no hay usuario, puesto que aparece en el EncuestaSchema
+    encuesta.respuestas.push({
+      usuarioId: null, //O null si es anónimo
+      respuestas,
+    });
+
+    await encuesta.save(); //Se guarda la encuesta con las respuestas
 
     //Si el usuario ingresó un email, se envía el correo
     if (email) {
