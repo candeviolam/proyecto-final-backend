@@ -57,7 +57,7 @@ const crearSuperAdmin = async () => {
 class Server {
   constructor() {
     this.app = express();
-    this.port = process.env.PORT;
+    this.port = process.env.PORT || 4000;
     //Conexión a MongoDB con mongoose
     this.conectarDB(); //llamo a la función para conectar la base de datos
     this.middlewares();
