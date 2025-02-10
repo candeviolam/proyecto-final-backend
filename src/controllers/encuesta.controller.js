@@ -2,12 +2,14 @@ import nodemailer from "nodemailer";
 import Encuesta from "../models/encuesta.model.js";
 
 //Función para enviar correos electrónicos
-const enviarCorreo = (email, asunto, contenido) => {
+const enviarCorreo = async (email, asunto, contenido) => {
+  if (!email) return; //Si no hay email, no enviamos nada
+
   const envioDeCorreo = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      usuario: process.env.EMAIL_USER,
-      contraseña: process.env.EMAIL_PASS,
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
   });
 
@@ -15,13 +17,15 @@ const enviarCorreo = (email, asunto, contenido) => {
     from: process.env.EMAIL_USER,
     to: email,
     subject: asunto,
-    text: contenido,
+    html: contenido, // html en lugar de text para que no me devuelva texto plano, sino algo más customizable
   };
 
-  envioDeCorreo.sendMail(opcionesCorreo, (error, info) => {
-    if (error) console.error("Error al enviar correo", error);
-    else console.log("Correo enviado:", info.response);
-  });
+  try {
+    const info = await envioDeCorreo.sendMail(opcionesCorreo);
+    console.log("Correo enviado:", info.response);
+  } catch (error) {
+    console.error("Error al enviar correo", error);
+  }
 };
 
 //Crear nueva encuesta
@@ -129,20 +133,48 @@ const responderEncuesta = async (req, res) => {
     const { email, respuestas } = req.body;
     const encuesta = await Encuesta.findById(req.params.id);
 
-    if (!encuesta)
+    if (!encuesta) {
       return res.status(404).json({ message: "Encuesta no encontrada" });
+    }
 
-    encuesta.respuestas.push({ email, respuestas });
+    encuesta.respuestas.push({ email: email || "Anónimo", respuestas });
     await encuesta.save();
 
-    //Llamar a la función para enviar el email con las repsuestas
-    enviarCorreo(
-      email, //Dirección de correo del usuario
-      `Respuestas enviadas para la encuesta: ${encuesta.nombre}`, //Asunto del correo
-      `Tus respuestas: ${JSON.stringify(respuestas)}` //Contenido del correo
-    );
+    //Si el usuario ingresó un email, se envía el correo
+    if (email) {
+      const contenidoHTML = `
+      <h2>Gracias por completar la encuesta: ${encuesta.nombre}</h2>
+      <p>Tus respuestas:</p>
+      <ul>
+      ${respuestas
+        .map(
+          (r, index) =>
+            `<li><strong>Pregunta ${index + 1}:</strong> ${
+              r.pregunta
+            } <br> <strong>Respuesta:</strong> ${r.respuesta}</li>`
+        )
+        .join("")}
+      </ul>
+      <p>Saludos,</p>
+      <p>Encuestas Online</p>
+      `;
 
-    res.json({ message: "Respuesta registrada y correo enviado" });
+      try {
+        await enviarCorreo(
+          email,
+          `Respuestas de la encuesta: ${encuesta.nombre}`,
+          contenidoHTML
+        );
+      } catch (error) {
+        console.error("Error al enviar el correo:", error);
+      }
+    }
+
+    res.json({
+      message: email
+        ? "Respuesta registrada y correo enviado"
+        : "Respuesta registrada",
+    });
   } catch (error) {
     res.status(500).json({ message: "Error al responder encuesta" });
   }
