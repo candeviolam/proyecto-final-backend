@@ -62,7 +62,6 @@ class Server {
     this.conectarDB(); //llamo a la función para conectar la base de datos
     this.middlewares();
     this.routes(); //llamo al método para que mi aplicación disponga de esas rutas (lo mismo con los middlewares)
-    this.iniciarAdmin();
   }
 
   async iniciarAdmin() {
@@ -75,7 +74,10 @@ class Server {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       })
-      .then(() => console.log("Conexión exitosa a MongoDB"))
+      .then(() => {
+        console.log("Conexión exitosa a MongoDB");
+        this.iniciarAdmin(); //Para que el código para crear el Super Admin solo se ejecute cuando MongoDB esté conectado
+      })
       .catch((error) => console.error("Error al conectar a MongoDB", error));
   }
 

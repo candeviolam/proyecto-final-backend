@@ -74,4 +74,25 @@ router.delete("/eliminar/:id", verificarToken, esAdmin, eliminarEncuesta);
 //Ruta para permitir responder encuestas de manera anónima o por email
 router.post("/:id/responder", responderEncuesta);
 
+//Ruta para cambiar el estado de una encuesta (activar/desactivar)
+router.put("/estado/:id", verificarToken, esAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const encuesta = await Encuesta.findById(id);
+    if (!encuesta)
+      return res.status(404).json({ message: "Encuesta no encontrada" });
+
+    encuesta.estado = !encuesta.estado; //Alternar estado
+    await encuesta.save();
+
+    res.json({
+      message: `Encuesta ${encuesta.estado ? "activada" : "desactivada"}`,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error al cambiar el estado de la encuesta", error });
+  }
+});
+
 export default router;

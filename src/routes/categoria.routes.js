@@ -46,4 +46,25 @@ router.put(
 //Ruta para eliminar una categoría por ID (protegida)
 router.delete("/eliminar/:id", verificarToken, esAdmin, eliminarCategoria);
 
+//Ruta para cambiar el estado de una categoría (activar/desactivar)
+router.put("/estado/:id", verificarToken, esAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const categoria = await Categoria.findById(id);
+    if (!categoria)
+      return res.status(404).json({ message: "Categoría no encontrada" });
+
+    categoria.estado = !categoria.estado; //Alternar estado
+    await categoria.save();
+
+    res.json({
+      message: `Categoría ${categoria.estado ? "activada" : "desactivada"}`,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error al cambiar el estado de la categoría", error });
+  }
+});
+
 export default router;
