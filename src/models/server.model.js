@@ -2,6 +2,7 @@ import bcrypt from "bcrypt"; //importo bcrypt para encriptar la contraseña del 
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose"; //importo mongoose para incluir la conexión de MongoDB
+import cors from "cors"; //para permitir que mi frontend y backend puedan comunicarse
 import adminRouter from "../routes/admin.routes.js";
 import encuestaRouter from "../routes/encuesta.routes.js";
 import categoriaRouter from "../routes/categoria.routes.js";
@@ -89,6 +90,7 @@ class Server {
 
   middlewares() {
     this.app.use(express.json());
+    this.app.use(cors());
   }
 
   routes() {

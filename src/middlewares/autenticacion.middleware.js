@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const verificarToken = (req, res, next) => {
-  const token = req.header("Autorización");
+  const token = req.header("Authorization");
 
   if (!token) return res.status(401).json({ message: "Acceso denegado" });
 

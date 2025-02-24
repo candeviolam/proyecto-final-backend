@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { body } from "express-validator";
+import Categoria from "../models/categoria.model.js";
 import {
   crearCategoria,
   obtenerCategorias,
