@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt"; //importo bcrypt para encriptar la contraseña del super admin
+import cors from "cors";
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose"; //importo mongoose para incluir la conexión de MongoDB
