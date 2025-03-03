@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { body } from "express-validator";
-import { register, login } from "../controllers/admin.controller.js";
+import { register, login } from "../controllers/auth.controller.js";
 import {
   verificarToken,
   esAdmin,
