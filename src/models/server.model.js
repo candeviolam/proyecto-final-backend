@@ -2,8 +2,7 @@ import bcrypt from "bcrypt"; //importo bcrypt para encriptar la contraseña del 
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose"; //importo mongoose para incluir la conexión de MongoDB
-import cors from "cors"; //para permitir que mi frontend y backend puedan comunicarse
-import adminRouter from "../routes/admin.routes.js";
+import authRouter from "../routes/auth.routes.js";
 import encuestaRouter from "../routes/encuesta.routes.js";
 import categoriaRouter from "../routes/categoria.routes.js";
 import Usuario from "../models/usuario.model.js";
@@ -94,7 +93,7 @@ class Server {
   }
 
   routes() {
-    this.app.use("/api/admin", adminRouter); //con ctrl + espacio para que me diga de donde importarla y me la importe arriba
+    this.app.use("/api/auth", authRouter); //con ctrl + espacio para que me diga de donde importarla y me la importe arriba
     this.app.use("/api/encuesta", encuestaRouter);
     this.app.use("/api/categoria", categoriaRouter);
   }

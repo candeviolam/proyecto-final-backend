@@ -13,7 +13,7 @@ const register = async (req, res) => {
     return res.status(400).json({ errors: errores.array() }); //devuelve los errores al cliente
   }
 
-  const { email, contraseña, nombre } = req.body;
+  const { nombre, apellido, email, telefono, contraseña } = req.body;
 
   try {
     //Validar si el email ya existe
@@ -27,9 +27,11 @@ const register = async (req, res) => {
 
     //Crear el nuevo usuario
     const nuevoUsuario = new Usuario({
-      email,
-      contraseña: contraseñaHasheada,
       nombre,
+      apellido,
+      email,
+      telefono,
+      contraseñaHasheada,
     });
     await nuevoUsuario.save();
 
@@ -91,7 +93,7 @@ const login = async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.json({ message: "Has iniciado sesión correctamente", token });
+    res.json({ message: "Ha iniciado sesión correctamente", token });
   } catch (error) {
     res
       .status(500)
