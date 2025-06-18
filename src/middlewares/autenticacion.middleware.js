@@ -6,9 +6,13 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const verificarToken = (req, res, next) => {
-  const token = req.header("Authorization");
+  const authHeader = req.header("Authorization");
 
-  if (!token) return res.status(401).json({ message: "Acceso denegado" });
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "Acceso denegado" });
+  }
+
+  const token = authHeader.split(" ")[1];
 
   try {
     const usuarioVerificado = jwt.verify(token, process.env.JWT_SECRET);

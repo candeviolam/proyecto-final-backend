@@ -39,9 +39,13 @@ const register = async (req, res) => {
     //código para enviar un email con un link de verificación
 
     //Generar token
-    const token = jwt.sign({ id: nuevoUsuario._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { id: nuevoUsuario._id, rol: nuevoUsuario.rol },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     res.json({ message: "Resgistro exitoso", token });
   } catch (error) {
@@ -89,9 +93,13 @@ const login = async (req, res) => {
     }
 
     //Generar token (JWT)
-    const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { id: usuario._id, rol: usuario.rol },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     res.json({ message: "Ha iniciado sesión correctamente", token });
   } catch (error) {

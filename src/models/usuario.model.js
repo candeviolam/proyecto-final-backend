@@ -19,6 +19,10 @@ const UsuarioSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  rol: {
+    type: String,
+    default: "usuario", //por defecto no es admin
+  },
 });
 
 const Usuario = mongoose.model("Usuario", UsuarioSchema);

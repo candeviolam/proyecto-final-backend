@@ -71,10 +71,7 @@ class Server {
 
   conectarDB() {
     mongoose
-      .connect(process.env.MONGO_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      })
+      .connect(process.env.MONGO_URI)
       .then(() => {
         console.log("Conexión exitosa a MongoDB");
         this.iniciarAdmin(); //Para que el código para crear el Super Admin solo se ejecute cuando MongoDB esté conectado
