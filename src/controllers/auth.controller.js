@@ -43,7 +43,7 @@ const register = async (req, res) => {
       { id: nuevoUsuario._id, rol: nuevoUsuario.rol },
       process.env.JWT_SECRET,
       {
-        expiresIn: "1h",
+        expiresIn: "7d",
       }
     );
 
