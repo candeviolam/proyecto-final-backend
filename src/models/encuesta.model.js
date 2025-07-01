@@ -12,9 +12,9 @@ const EncuestaSchema = new mongoose.Schema({
   },
   preguntas: [
     {
-      tipo: String, //tipo de pregunta, puede ser,  por ej: texto, opción múltiple, etc
+      tipo: String, //'texto', 'opcionUnica', opcionMultiple', 'escala'
       pregunta: String,
-      opciones: [String], //opciones disponibles si el tipo es 'opción múltiple'
+      opciones: [String], //opciones disponibles si aplica (opción única/múltiple)
     },
   ],
   respuestas: [
