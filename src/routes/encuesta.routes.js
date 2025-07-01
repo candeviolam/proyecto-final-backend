@@ -41,10 +41,10 @@ router.get("/obtener", obtenerEncuestas);
 router.get("/activas", obtenerEncuestasActivas);
 
 //Ruta para ortener una encuesta específica por ID
-router.get("/:id", verificarToken, obtenerEncuestaPorId);
+router.get("/:id", obtenerEncuestaPorId);
 
 //Ruta para obtener encuestas por categoría
-router.get("/categoria/:nombre", verificarToken, obtenerEncuestasPorCategoria);
+router.get("/categoria/:nombre", obtenerEncuestasPorCategoria);
 
 //Ruta para modificar una encuesta por ID (protegida)
 //Validación de datos - opcional porque el campo puede ser omitido, pero si está presente, requerirá que no esté vacío y será obligatorio
