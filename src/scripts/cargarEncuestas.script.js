@@ -5,10 +5,11 @@ import Encuesta from "../models/encuesta.model.js";
 dotenv.config();
 
 const encuestas = [
+  // CULTURA
   // Libros
   {
     nombre: "Encuesta sobre hábitos de lectura",
-    categoria: "Libros",
+    categoria: "Cultura",
     preguntas: [
       { tipo: "texto", pregunta: "¿Cuántos libros leés al mes?" },
       {
@@ -43,7 +44,7 @@ const encuestas = [
   },
   {
     nombre: "Encuesta sobre géneros literarios favoritos",
-    categoria: "Libros",
+    categoria: "Cultura",
     preguntas: [
       {
         tipo: "opcionMultiple",
@@ -80,7 +81,7 @@ const encuestas = [
   // Música
   {
     nombre: "Encuesta sobre hábitos de escucha de música",
-    categoria: "Música",
+    categoria: "Cultura",
     preguntas: [
       {
         tipo: "opcionUnica",
@@ -120,7 +121,7 @@ const encuestas = [
   },
   {
     nombre: "Encuesta sobre conciertos y experiencias musicales",
-    categoria: "Música",
+    categoria: "Cultura",
     preguntas: [
       {
         tipo: "opcionUnica",
@@ -156,7 +157,384 @@ const encuestas = [
     ],
   },
 
-  // Deporte
+  // Cine, series y películas
+  {
+    nombre: "Encuesta sobre series y películas",
+    categoria: "Cultura",
+    preguntas: [
+      {
+        tipo: "opcionMultiple",
+        pregunta: "¿Qué tipo de contenido mirás con más frecuencia?",
+        opciones: [
+          "Series",
+          "Películas",
+          "Documentales",
+          "Reality shows",
+          "Otro",
+        ],
+      },
+      {
+        tipo: "texto",
+        pregunta: "¿Qué plataforma usás más para mirar contenido?",
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Cuántas horas por semana mirás series o películas?",
+        opciones: ["Menos de 2 horas", "De 2 a 5 horas", "Más de 5 horas"],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Preferís ver contenido solo o acompañado?",
+        opciones: ["Solo", "Acompañado"],
+      },
+      {
+        tipo: "opcionMultiple",
+        pregunta: "¿Qué tipo de contenidos te gustan más?",
+        opciones: [
+          "Drama",
+          "Comedia",
+          "Terror",
+          "Ciencia ficción",
+          "Romance",
+          "Otro",
+        ],
+      },
+      { tipo: "texto", pregunta: "¿Qué título recomendarías últimamente?" },
+    ],
+  },
+
+  //ESTILO DE VIDA
+  {
+    nombre: "Encuesta sobre intereses y pasatiempos",
+    categoria: "Estilo de vida",
+    preguntas: [
+      {
+        tipo: "opcionMultiple",
+        pregunta: "¿Qué actividades hacés en tu tiempo libre?",
+        opciones: [
+          "Leer",
+          "Hacer deporte",
+          "Ver series o películas",
+          "Escuchar música",
+          "Jugar videojuegos",
+          "Salir con amigos",
+          "Otro",
+        ],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Cuántas horas por semana dedicás a tus hobbies?",
+        opciones: ["Menos de 5 horas", "De 5 a 7 horas", "Más de 7 horas"],
+      },
+      {
+        tipo: "escala",
+        pregunta: "¿Qué tan importantes son tus pasatiempos en tu vida? (0-10)",
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Preferís actividades al aire libre o en casa?",
+        opciones: ["Al aire libre", "En casa"],
+      },
+      {
+        tipo: "texto",
+        pregunta: "¿Qué actividad te gustaría empezar a practicar?",
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Solés compartir tus hobbies con otras personas?",
+        opciones: ["Sí", "No"],
+      },
+    ],
+  },
+  {
+    nombre: "Encuesta sobre bienestar personal",
+    categoria: "Estilo de vida",
+    preguntas: [
+      {
+        tipo: "opcionMultiple",
+        pregunta: "¿Qué actividades realizás para relajarte?",
+        opciones: [
+          "Meditación",
+          "Ejercicio",
+          "Leer",
+          "Ver series",
+          "Salir a caminar",
+          "Otros",
+        ],
+      },
+      {
+        tipo: "escala",
+        pregunta: "¿Qué tan satisfecho estás con tu bienestar actual? (0-10)",
+      },
+      { tipo: "texto", pregunta: "¿Cuántas horas dormís al día?" },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Tenés alguna rutina diaria de autocuidado?",
+        opciones: ["Sí", "No"],
+      },
+      { tipo: "texto", pregunta: "¿Qué cambiarías para sentirte mejor?" },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Te sentís estresado frecuentemente?",
+        opciones: ["Sí", "No"],
+      },
+    ],
+  },
+  {
+    nombre: "Encuesta sobre viajes y turismo",
+    categoria: "Estilo de vida",
+    preguntas: [
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Cuántos viajes realizaste en el último año?",
+        opciones: ["Ninguno", "1 o 2", "3 o más"],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Preferís viajar solo o acompañado?",
+        opciones: ["Solo", "Acompañado"],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Qué medio de transporte usás más para viajar?",
+        opciones: ["Avión", "Auto", "Tren", "Ómnibus", "Otro"],
+      },
+      {
+        tipo: "opcionMultiple",
+        pregunta: "¿Qué tipo de destinos preferís?",
+        opciones: ["Playa", "Montaña", "Ciudad", "Rural", "Otro"],
+      },
+      {
+        tipo: "escala",
+        pregunta: "¿Qué tan importante es viajar en tu vida? (0-10)",
+      },
+      {
+        tipo: "texto",
+        pregunta: "¿Qué destino te gustaría conocer próximamente?",
+      },
+    ],
+  },
+  //TECNOLOGÍA
+  {
+    nombre: "Encuesta sobre telefonía celular y servicios",
+    categoria: "Tecnología",
+    preguntas: [
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Cómo calificarías el servicio de Internet?",
+        opciones: [
+          "Excelente",
+          "Muy bueno",
+          "Bueno",
+          "Regular",
+          "Malo",
+          "Muy malo",
+        ],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Cómo calificarías el servicio de telefonía?",
+        opciones: [
+          "Excelente",
+          "Muy bueno",
+          "Bueno",
+          "Regular",
+          "Malo",
+          "Muy malo",
+        ],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Cómo calificarías la atención al cliente?",
+        opciones: [
+          "Excelente",
+          "Muy buena",
+          "Buena",
+          "Regular",
+          "Mala",
+          "Muy mala",
+        ],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Qué plan tenés contratado?",
+        opciones: [
+          "Común",
+          "Súper",
+          "Internet libre",
+          "Internet y llamadas libres",
+        ],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Cambiarías el plan?",
+        opciones: ["Sí", "No"],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Por cuál lo cambiarías?",
+        opciones: [
+          "Común",
+          "Súper",
+          "Internet libre",
+          "Internet y llamadas libres",
+        ],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Cambiarías de empresa de telefonía?",
+        opciones: ["Sí", "No"],
+      },
+      {
+        tipo: "texto",
+        pregunta: "¿Qué modelo de celular tenés y de qué marca?",
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Dónde lo adquiriste?",
+        opciones: [
+          "En una tienda de esta compañía",
+          "En una tienda de otra compañía",
+          "En una tienda de celulares",
+          "Otro",
+        ],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Por qué razón cambiaste o cambiarías tu celular?",
+        opciones: [
+          "Para tener un modelo más actualizado",
+          "Porque el anterior no funcionaba bien",
+          "Porque el anterior se rompió",
+          "Otro",
+        ],
+      },
+    ],
+  },
+  {
+    nombre: "Encuesta sobre uso de tecnología",
+    categoria: "Tecnología",
+    preguntas: [
+      {
+        tipo: "opcionMultiple",
+        pregunta: "¿Qué dispositivos usás con más frecuencia?",
+        opciones: ["Celular", "Computadora", "Tablet", "Smart TV", "Otro"],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Cuántas horas al día estás conectado a Internet?",
+        opciones: ["Menos de 2 horas", "De 2 a 5 horas", "Más de 5 horas"],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Te considerás una persona actualizada tecnológicamente?",
+        opciones: ["Sí", "No"],
+      },
+      { tipo: "texto", pregunta: "¿Qué aplicaciones usás más?" },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Te gustaría aprender más sobre tecnología?",
+        opciones: ["Sí", "No"],
+      },
+      {
+        tipo: "opcionMultiple",
+        pregunta: "¿Qué aspecto de la tecnología te interesa más?",
+        opciones: [
+          "Innovación",
+          "Seguridad",
+          "Productividad",
+          "Entretenimiento",
+          "Otro",
+        ],
+      },
+    ],
+  },
+
+  //MEDIO AMBIENTE
+  {
+    nombre: "Encuesta sobre el cuidado del medio ambiente",
+    categoria: "Medio ambiente",
+    preguntas: [
+      {
+        tipo: "escala",
+        pregunta:
+          "¿Qué importancia le das al cuidado del medio ambiente? (0-10)",
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Separás residuos en tu casa?",
+        opciones: ["Sí", "No"],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Reducís el uso de plásticos?",
+        opciones: ["Sí", "No"],
+      },
+      {
+        tipo: "opcionMultiple",
+        pregunta: "¿Qué acciones hacés para cuidar el ambiente?",
+        opciones: [
+          "Reciclar",
+          "Reutilizar objetos",
+          "Usar menos transporte que contamine",
+          "Ahorrar energía",
+          "Otro",
+        ],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta:
+          "¿Te gustaría recibir información sobre prácticas sustentables?",
+        opciones: ["Sí", "No"],
+      },
+      {
+        tipo: "texto",
+        pregunta: "¿Qué medida creés más urgente para proteger el planeta?",
+      },
+    ],
+  },
+
+  //EDUCACIÓN
+  {
+    nombre: "Encuesta sobre la vida universitaria",
+    categoria: "Educación",
+    preguntas: [
+      { tipo: "texto", pregunta: "¿Qué edad tenés?" },
+      {
+        tipo: "texto",
+        pregunta: "¿En qué año comenzaste a estudiar tu carrera?",
+      },
+      { tipo: "texto", pregunta: "¿Qué carrera estás cursando?" },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Cuántas materias aprobaste hasta el momento?",
+        opciones: ["Menos de 5", "Entre 5 y 10", "Más de 10"],
+      },
+      {
+        tipo: "texto",
+        pregunta: "¿Cuántas materias estás cursando actualmente?",
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Cuántas horas por semana cursás?",
+        opciones: ["De 2 a 4", "De 4 a 8", "Más de 8"],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta:
+          "¿Cuántas horas por semana dedicás al estudio fuera de clase?",
+        opciones: ["Entre 10 y 15", "Entre 15 y 20", "Más de 20"],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Trabajás actualmente?",
+        opciones: ["Sí", "No"],
+      },
+      { tipo: "texto", pregunta: "Si trabajás, ¿cuántas horas por semana?" },
+    ],
+  },
+
+  //DEPORTE
   {
     nombre: "Encuesta sobre actividad física diaria",
     categoria: "Deporte",
@@ -183,7 +561,7 @@ const encuestas = [
       },
       {
         tipo: "texto",
-        pregunta: "¿Cuántas horas dedicas semanalmente al deporte?",
+        pregunta: "¿Cuántas horas dedicás semanalmente al deporte?",
       },
     ],
   },
@@ -225,7 +603,7 @@ const encuestas = [
     ],
   },
 
-  // Mascotas
+  //MASCOTAS
   {
     nombre: "Encuesta sobre cuidados de perros",
     categoria: "Mascotas",
@@ -257,11 +635,7 @@ const encuestas = [
     nombre: "Encuesta sobre convivencia con gatos",
     categoria: "Mascotas",
     preguntas: [
-      {
-        tipo: "opcionUnica",
-        pregunta: "¿Tenés gato?",
-        opciones: ["Sí", "No"],
-      },
+      { tipo: "opcionUnica", pregunta: "¿Tenés gato?", opciones: ["Sí", "No"] },
       { tipo: "texto", pregunta: "¿Qué alimento preferís darle?" },
       {
         tipo: "opcionMultiple",
@@ -281,7 +655,7 @@ const encuestas = [
     ],
   },
 
-  // Alimentación
+  //ALIMENTACIÓN
   {
     nombre: "Encuesta sobre hábitos de alimentación saludable",
     categoria: "Alimentación",
@@ -332,73 +706,6 @@ const encuestas = [
       {
         tipo: "opcionUnica",
         pregunta: "¿Disfrutás cocinar?",
-        opciones: ["Sí", "No"],
-      },
-    ],
-  },
-
-  // Hábitos y Bienestar Personal
-  {
-    nombre: "Encuesta sobre bienestar personal",
-    categoria: "Hábitos y Bienestar Personal",
-    preguntas: [
-      {
-        tipo: "opcionMultiple",
-        pregunta: "¿Qué actividades realizás para relajarte?",
-        opciones: [
-          "Meditación",
-          "Ejercicio",
-          "Leer",
-          "Ver series",
-          "Salir a caminar",
-          "Otros",
-        ],
-      },
-      {
-        tipo: "escala",
-        pregunta: "¿Qué tan satisfecho estás con tu bienestar actual? (0-10)",
-      },
-      { tipo: "texto", pregunta: "¿Cuántas horas dormís al día?" },
-      {
-        tipo: "opcionUnica",
-        pregunta: "¿Tenés alguna rutina diaria de autocuidado?",
-        opciones: ["Sí", "No"],
-      },
-      { tipo: "texto", pregunta: "¿Qué cambiarías para sentirte mejor?" },
-      {
-        tipo: "opcionUnica",
-        pregunta: "¿Te sentís estresado frecuentemente?",
-        opciones: ["Sí", "No"],
-      },
-    ],
-  },
-  {
-    nombre: "Encuesta sobre hábitos digitales y uso de pantallas",
-    categoria: "Hábitos y Bienestar Personal",
-    preguntas: [
-      {
-        tipo: "opcionUnica",
-        pregunta: "¿Cuántas horas al día usás pantallas?",
-        opciones: ["Menos de 2hs", "2-5hs", "Más de 5hs"],
-      },
-      {
-        tipo: "opcionMultiple",
-        pregunta: "¿Para qué usás principalmente las pantallas?",
-        opciones: ["Trabajo", "Estudio", "Ocio", "Redes sociales", "Otro"],
-      },
-      { tipo: "texto", pregunta: "¿Qué dispositivo usás más?" },
-      {
-        tipo: "opcionUnica",
-        pregunta: "¿Te gustaría reducir tu uso de pantallas?",
-        opciones: ["Sí", "No"],
-      },
-      {
-        tipo: "texto",
-        pregunta: "¿Qué actividad realizarías si no usaras pantallas?",
-      },
-      {
-        tipo: "opcionUnica",
-        pregunta: "¿Te sentís dependiente del celular?",
         opciones: ["Sí", "No"],
       },
     ],
