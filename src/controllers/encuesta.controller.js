@@ -168,21 +168,36 @@ const responderEncuesta = async (req, res) => {
     //Si el usuario ingresó un email, se envía el correo
     if (email) {
       const contenidoHTML = `
-      <h2>Gracias por completar la encuesta: ${encuesta.nombre}</h2>
-      <p>Tus respuestas:</p>
-      <ul>
+  <div style="font-family: Arial, sans-serif; max-width:600px; margin:auto; border:1px solid #ddd; padding:20px; border-radius:8px;">
+    <h2 style="color:#834e91;">¡Gracias por completar la encuesta!</h2>
+    <p><strong>Encuesta:</strong> ${encuesta.nombre
+      .replace(/^Encuesta (de|sobre)\s*/i, "")
+      .trim()}
+    </p>
+    <hr>
+    <h3 style="color:#555;">Tus respuestas:</h3>
+    <ul style="list-style:none; padding:0;">
       ${respuestas
         .map(
           (r, index) =>
-            `<li><strong>Pregunta ${index + 1}:</strong> ${
-              r.pregunta
-            } <br> <strong>Respuesta:</strong> ${r.respuesta}</li>`
+            `<li style="margin-bottom:10px;">
+              <strong>Pregunta ${index + 1}:</strong><br>
+              ${r.pregunta}<br>
+              <strong>Respuesta:</strong><br>
+              ${
+                Array.isArray(r.respuesta)
+                  ? r.respuesta.join(", ")
+                  : r.respuesta
+              }
+            </li>`
         )
         .join("")}
-      </ul>
-      <p>Saludos,</p>
-      <p>Encuestas Online</p>
-      `;
+    </ul>
+    <hr>
+    <p style="font-size:0.9em; color:#888;">Este correo es un resumen automático de tus respuestas.</p>
+    <p style="font-size:0.9em; color:#888;">Encuestas Online</p>
+  </div>
+`;
 
       try {
         await enviarCorreo(
