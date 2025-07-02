@@ -1,26 +1,34 @@
 import mongoose from "mongoose";
 
-//Creación del esquema de encuesta
 const EncuestaSchema = new mongoose.Schema({
   nombre: {
     type: String,
     required: true,
   },
   estado: {
-    type: Boolean, //estado de la encuesta, activa o inactiva
-    default: true, //por defecto la encuesta está activa
+    type: Boolean,
+    default: true,
   },
   preguntas: [
     {
-      tipo: String, //'texto', 'opcionUnica', opcionMultiple', 'escala'
+      tipo: String, // 'texto', 'opcionUnica', 'opcionMultiple', 'escala'
       pregunta: String,
-      opciones: [String], //opciones disponibles si aplica (opción única/múltiple)
+      opciones: [String],
     },
   ],
   respuestas: [
     {
-      usuarioId: { type: mongoose.Schema.Types.ObjectId, ref: "Usuario" }, //para relacionar la respuesta con un usuario
-      respuestas: [String], //respuestas dadas a cada preg
+      usuarioId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Usuario",
+        default: null,
+      },
+      respuestas: [
+        {
+          pregunta: { type: String, required: true },
+          respuesta: { type: mongoose.Schema.Types.Mixed },
+        },
+      ],
     },
   ],
   categoria: {
@@ -29,7 +37,6 @@ const EncuestaSchema = new mongoose.Schema({
   },
 });
 
-//Crear el modelo de encuesta con el esquema definido
 const Encuesta = mongoose.model("Encuesta", EncuestaSchema);
 
 export default Encuesta;

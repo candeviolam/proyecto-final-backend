@@ -201,7 +201,10 @@ const responderEncuesta = async (req, res) => {
         : "Respuesta registrada",
     });
   } catch (error) {
-    res.status(500).json({ message: "Error al responder encuesta" });
+    console.error("Error al responder encuesta:", error);
+    res
+      .status(500)
+      .json({ message: "Error al responder encuesta", error: error.message });
   }
 };
 
