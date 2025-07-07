@@ -7,6 +7,10 @@ import authRouter from "../routes/auth.routes.js";
 import encuestaRouter from "../routes/encuesta.routes.js";
 import categoriaRouter from "../routes/categoria.routes.js";
 import Usuario from "../models/usuario.model.js";
+import {
+  noEncontrado,
+  manejoDeError,
+} from "../middlewares/manejoDeError.middleware.js";
 
 dotenv.config(); //para cargar las variables de entorno del archivo .env
 
@@ -63,6 +67,8 @@ class Server {
     this.conectarDB(); //llamo a la función para conectar la base de datos
     this.middlewares();
     this.routes(); //llamo al método para que mi aplicación disponga de esas rutas (lo mismo con los middlewares)
+    this.app.use(noEncontrado);
+    this.app.use(manejoDeError);
   }
 
   async iniciarAdmin() {
