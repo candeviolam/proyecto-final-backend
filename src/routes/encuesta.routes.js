@@ -23,14 +23,27 @@ router.post(
   "/crear",
   verificarToken, //Verifica el token JWT
   esAdmin, //Verifica si el usuario es administrador
+  //Validación de datos
   [
-    //Validación de datos
-    body("nombre").notEmpty().withMessage("El nombre es obligatorio"),
+    body("nombre")
+      .notEmpty()
+      .withMessage("El nombre es obligatorio")
+      .isLength({ min: 3 })
+      .withMessage("El nombre debe tener al menos 3 caracteres"),
+    body("categoria").notEmpty().withMessage("La categoría es obligatoria"),
     body("preguntas")
-      .isArray()
-      .withMessage("Las preguntas deben ser una array"),
-    body("categoria").notEmpty().withMessage("La categoria es obligatoria"),
+      .isArray({ min: 1 })
+      .withMessage("Debe agregar al menos una pregunta")
+      .custom((preguntas) => {
+        preguntas.forEach((p, i) => {
+          if (!p.pregunta || p.pregunta.trim() === "") {
+            throw new Error(`La pregunta #${i + 1} no puede estar vacía`);
+          }
+        });
+        return true;
+      }),
   ],
+
   crearEncuesta
 );
 
@@ -56,15 +69,25 @@ router.put(
     body("nombre")
       .optional()
       .notEmpty()
-      .withMessage("El nombre es obligatorio"),
-    body("preguntas")
-      .optional()
-      .isArray()
-      .withMessage("Las preguntas deben ser un arreglo"),
+      .withMessage("El nombre es obligatorio")
+      .isLength({ min: 3 })
+      .withMessage("El nombre debe tener al menos 3 caracteres"),
     body("categoria")
       .optional()
       .notEmpty()
-      .withMessage("La categoría es obligatorio"),
+      .withMessage("La categoría es obligatoria"),
+    body("preguntas")
+      .optional()
+      .isArray({ min: 1 })
+      .withMessage("Debe haber al menos una pregunta")
+      .custom((preguntas) => {
+        preguntas.forEach((p, i) => {
+          if (!p.pregunta || p.pregunta.trim() === "") {
+            throw new Error(`La pregunta #${i + 1} no puede estar vacía`);
+          }
+        });
+        return true;
+      }),
   ],
   modificarEncuesta
 );
