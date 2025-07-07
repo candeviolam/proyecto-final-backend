@@ -1,5 +1,7 @@
 import nodemailer from "nodemailer";
 import Encuesta from "../models/encuesta.model.js";
+import Respuesta from "../models/respuesta.model.js";
+import moment from "moment";
 
 //Función para enviar correos electrónicos
 const enviarCorreo = async (email, asunto, contenido) => {
@@ -165,7 +167,14 @@ const responderEncuesta = async (req, res) => {
 
     await encuesta.save(); //Se guarda la encuesta con las respuestas
 
-    //Si el usuario ingresó un email, se envía el correo
+    const nuevaRespuesta = new Respuesta({
+      encuestaId: encuesta._id,
+      email: email || null,
+      respuestas,
+    });
+    await nuevaRespuesta.save();
+
+    // Si el usuario ingresó un email, se envía el correo
     if (email) {
       const contenidoHTML = `
   <div style="font-family: Arial, sans-serif; max-width:600px; margin:auto; border:1px solid #ddd; padding:20px; border-radius:8px;">
@@ -197,8 +206,7 @@ const responderEncuesta = async (req, res) => {
     <p style="font-size:0.9em; color:#888;">Este correo es un resumen automático de tus respuestas.</p>
     <p style="font-size:0.9em; color:#888;">Encuestas Online</p>
   </div>
-`;
-
+  `;
       try {
         await enviarCorreo(
           email,
@@ -232,4 +240,50 @@ export {
   modificarEncuesta,
   eliminarEncuesta,
   responderEncuesta,
+};
+
+export const obtenerRespuestasPorDia = async (req, res) => {
+  try {
+    const dias = [];
+    for (let i = 6; i >= 0; i--) {
+      dias.push(moment().subtract(i, "days").startOf("day"));
+    }
+
+    const resultado = [];
+
+    for (const dia of dias) {
+      const siguienteDia = moment(dia).add(1, "day");
+
+      const cantidad = await Respuesta.countDocuments({
+        createdAt: { $gte: dia.toDate(), $lt: siguienteDia.toDate() },
+      });
+
+      resultado.push({
+        dia: dia.format("dddd"), // Lunes, Martes, etc.
+        cantidad,
+      });
+    }
+
+    res.json(resultado);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Error al obtener las respuestas por día." });
+  }
+};
+
+export const obtenerRespuestasPorEncuesta = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const respuestas = await Respuesta.find({ encuestaId: id });
+
+    res.json(respuestas);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Error al obtener las respuestas de la encuesta." });
+  }
 };

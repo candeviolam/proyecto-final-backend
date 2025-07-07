@@ -10,6 +10,8 @@ import {
   obtenerEncuestaPorId,
   obtenerEncuestasPorCategoria,
   responderEncuesta,
+  obtenerRespuestasPorDia,
+  obtenerRespuestasPorEncuesta,
 } from "../controllers/encuesta.controller.js";
 import {
   verificarToken,
@@ -53,8 +55,24 @@ router.get("/obtener", obtenerEncuestas);
 //Ruta para obtener solo encuestas activas
 router.get("/activas", obtenerEncuestasActivas);
 
+// Ruta para obtener las respuestas de todas las encuestas por día
+router.get(
+  "/respuestas-por-dia",
+  verificarToken,
+  esAdmin,
+  obtenerRespuestasPorDia
+);
+
 //Ruta para ortener una encuesta específica por ID
 router.get("/:id", obtenerEncuestaPorId);
+
+// Ruta para obtener las respuestas de una encuesta específica
+router.get(
+  "/:id/respuestas",
+  verificarToken,
+  esAdmin,
+  obtenerRespuestasPorEncuesta
+);
 
 //Ruta para obtener encuestas por categoría
 router.get("/categoria/:nombre", obtenerEncuestasPorCategoria);
