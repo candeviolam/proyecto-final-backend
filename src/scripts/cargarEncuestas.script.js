@@ -721,9 +721,11 @@ const encuestas = [
       const nueva = new Encuesta({
         nombre: enc.nombre,
         categoria: enc.categoria,
+        descripcion: enc.descripcion || "",
         preguntas: enc.preguntas,
         estado: true,
       });
+
       await nueva.save();
       console.log(`Encuesta creada: ${enc.nombre}`);
     }

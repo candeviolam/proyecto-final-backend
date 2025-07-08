@@ -5,6 +5,10 @@ const EncuestaSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  descripcion: {
+    type: String,
+    default: "",
+  },
   estado: {
     type: Boolean,
     default: true,
