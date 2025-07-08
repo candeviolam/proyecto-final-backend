@@ -94,6 +94,11 @@ router.put(
       .optional()
       .notEmpty()
       .withMessage("La categoría es obligatoria"),
+    body("descripcion")
+      .optional()
+      .isString()
+      .isLength({ max: 500 })
+      .withMessage("La descripción no puede superar 500 caracteres"),
     body("preguntas")
       .optional()
       .isArray({ min: 1 })
