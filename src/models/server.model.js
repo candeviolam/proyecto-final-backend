@@ -6,6 +6,7 @@ import mongoose from "mongoose"; //importo mongoose para incluir la conexión de
 import authRouter from "../routes/auth.routes.js";
 import encuestaRouter from "../routes/encuesta.routes.js";
 import categoriaRouter from "../routes/categoria.routes.js";
+import adminRouter from "../routes/admin.routes.js";
 import Usuario from "../models/usuario.model.js";
 import {
   noEncontrado,
@@ -100,6 +101,7 @@ class Server {
     this.app.use("/api/auth", authRouter); //con ctrl + espacio para que me diga de donde importarla y me la importe arriba
     this.app.use("/api/encuesta", encuestaRouter);
     this.app.use("/api/categoria", categoriaRouter);
+    this.app.use("/api/admin", adminRouter);
   }
 }
 
