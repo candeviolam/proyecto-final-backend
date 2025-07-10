@@ -715,8 +715,6 @@ const encuestas = [
 (async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    console.log("Conectado a MongoDB");
-
     for (const enc of encuestas) {
       const nueva = new Encuesta({
         nombre: enc.nombre,
@@ -725,12 +723,9 @@ const encuestas = [
         preguntas: enc.preguntas,
         estado: true,
       });
-
       await nueva.save();
-      console.log(`Encuesta creada: ${enc.nombre}`);
     }
-
-    console.log("Todas las encuestas fueron cargadas correctamente.");
+    console.log("Encuestas cargadas correctamente.");
     process.exit();
   } catch (error) {
     console.error("Error al cargar encuestas:", error);

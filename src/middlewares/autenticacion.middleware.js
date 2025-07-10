@@ -1,5 +1,3 @@
-//Para proteger rutas y validar roles (admin o usuario normal)
-
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
@@ -16,7 +14,7 @@ export const verificarToken = (req, res, next) => {
 
   try {
     const usuarioVerificado = jwt.verify(token, process.env.JWT_SECRET);
-    req.usuario = usuarioVerificado; //Se agrega el usuario decodificado al request
+    req.usuario = usuarioVerificado;
     next();
   } catch (error) {
     res.status(400).json({ message: "Token inválido" });

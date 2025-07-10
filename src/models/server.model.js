@@ -1,8 +1,8 @@
-import bcrypt from "bcrypt"; //importo bcrypt para encriptar la contraseña del super admin
+import bcrypt from "bcrypt";
 import cors from "cors";
 import express from "express";
 import dotenv from "dotenv";
-import mongoose from "mongoose"; //importo mongoose para incluir la conexión de MongoDB
+import mongoose from "mongoose";
 import authRouter from "../routes/auth.routes.js";
 import encuestaRouter from "../routes/encuesta.routes.js";
 import categoriaRouter from "../routes/categoria.routes.js";
@@ -13,14 +13,10 @@ import {
   manejoDeError,
 } from "../middlewares/manejoDeError.middleware.js";
 
-dotenv.config(); //para cargar las variables de entorno del archivo .env
+dotenv.config();
 
 //Super Admin predefinido
 const crearSuperAdmin = async () => {
-  //console.log para ver si las variables se están leyendo bien
-  console.log("ADMIN_EMAIL", process.env.ADMIN_EMAIL);
-  console.log("ADMIN_PASSWORD", process.env.ADMIN_PASSWORD);
-
   const adminExistente = await Usuario.findOne({
     email: process.env.ADMIN_EMAIL,
   });
@@ -36,14 +32,12 @@ const crearSuperAdmin = async () => {
     await admin.save();
     console.log("Super Admin creado exitosamente");
   } else {
-    //Si el Super Admin existe, verificamos si la contraseña ha cambiado
     const contraseñaAdminValida = await bcrypt.compare(
       process.env.ADMIN_PASSWORD,
       adminExistente.contraseñaHasheada
     );
 
     if (!contraseñaAdminValida) {
-      //Si la contraseña es diferente, la actualizamos
       const nuevaContraseñaHasheada = await bcrypt.hash(
         process.env.ADMIN_PASSWORD,
         10
@@ -51,23 +45,21 @@ const crearSuperAdmin = async () => {
 
       adminExistente.contraseñaHasheada = nuevaContraseñaHasheada;
       await adminExistente.save();
-
-      console.log("Contraseña del Súper Admin actualizada correctamente");
+      console.log("Contraseña del Super Admin actualizada correctamente");
     } else {
-      console.log(
-        "La contraseña del Súper Admin es la misma, no se requiere actualización"
-      );
+      console.log("La contraseña del Super Admin es la misma");
     }
   }
 };
+
 class Server {
   constructor() {
     this.app = express();
     this.port = process.env.PORT || 4000;
-    //Conexión a MongoDB con mongoose
-    this.conectarDB(); //llamo a la función para conectar la base de datos
+    //Conexión a MongoDB
+    this.conectarDB();
     this.middlewares();
-    this.routes(); //llamo al método para que mi aplicación disponga de esas rutas (lo mismo con los middlewares)
+    this.routes();
     this.app.use(noEncontrado);
     this.app.use(manejoDeError);
   }
@@ -81,7 +73,7 @@ class Server {
       .connect(process.env.MONGO_URI)
       .then(() => {
         console.log("Conexión exitosa a MongoDB");
-        this.iniciarAdmin(); //Para que el código para crear el Super Admin solo se ejecute cuando MongoDB esté conectado
+        this.iniciarAdmin();
       })
       .catch((error) => console.error("Error al conectar a MongoDB", error));
   }
@@ -98,7 +90,7 @@ class Server {
   }
 
   routes() {
-    this.app.use("/api/auth", authRouter); //con ctrl + espacio para que me diga de donde importarla y me la importe arriba
+    this.app.use("/api/auth", authRouter);
     this.app.use("/api/encuesta", encuestaRouter);
     this.app.use("/api/categoria", categoriaRouter);
     this.app.use("/api/admin", adminRouter);

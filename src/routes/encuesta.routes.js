@@ -20,12 +20,10 @@ import {
 
 const router = Router();
 
-//Ruta para crear una nueva encuesta (protegida)
 router.post(
   "/crear",
-  verificarToken, //Verifica el token JWT
-  esAdmin, //Verifica si el usuario es administrador
-  //Validación de datos
+  verificarToken,
+  esAdmin,
   [
     body("nombre")
       .notEmpty()
@@ -49,13 +47,10 @@ router.post(
   crearEncuesta
 );
 
-//Ruta para obtener todas las encuestas
 router.get("/obtener", obtenerEncuestas);
 
-//Ruta para obtener solo encuestas activas
 router.get("/activas", obtenerEncuestasActivas);
 
-// Ruta para obtener las respuestas de todas las encuestas por día
 router.get(
   "/respuestas-por-dia",
   verificarToken,
@@ -63,10 +58,8 @@ router.get(
   obtenerRespuestasPorDia
 );
 
-//Ruta para ortener una encuesta específica por ID
 router.get("/:id", obtenerEncuestaPorId);
 
-// Ruta para obtener las respuestas de una encuesta específica
 router.get(
   "/:id/respuestas",
   verificarToken,
@@ -74,11 +67,8 @@ router.get(
   obtenerRespuestasPorEncuesta
 );
 
-//Ruta para obtener encuestas por categoría
 router.get("/categoria/:nombre", obtenerEncuestasPorCategoria);
 
-//Ruta para modificar una encuesta por ID (protegida)
-//Validación de datos - opcional porque el campo puede ser omitido, pero si está presente, requerirá que no esté vacío y será obligatorio
 router.put(
   "/modificar/:id",
   verificarToken,
@@ -115,13 +105,10 @@ router.put(
   modificarEncuesta
 );
 
-//Ruta para eliminar una encuesta por ID (protegida)
 router.delete("/eliminar/:id", verificarToken, esAdmin, eliminarEncuesta);
 
-//Ruta para permitir responder encuestas de manera anónima o por email
 router.post("/:id/responder", responderEncuesta);
 
-//Ruta para cambiar el estado de una encuesta (activar/desactivar)
 router.put("/estado/:id", verificarToken, esAdmin, async (req, res) => {
   try {
     const { id } = req.params;
@@ -129,7 +116,7 @@ router.put("/estado/:id", verificarToken, esAdmin, async (req, res) => {
     if (!encuesta)
       return res.status(404).json({ message: "Encuesta no encontrada" });
 
-    encuesta.estado = !encuesta.estado; //Alternar estado
+    encuesta.estado = !encuesta.estado;
     await encuesta.save();
 
     res.json({

@@ -1,5 +1,3 @@
-//Archivo para instanciar y correr el servidor
-
 import Server from "./models/server.model.js";
 
 const app = new Server();

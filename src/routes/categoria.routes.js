@@ -14,28 +14,21 @@ import {
 
 const router = Router();
 
-//Ruta para crear una nueva categoría (protegida)
 router.post(
   "/crear",
-  verificarToken, //Verificar si el usuario esta autenticado
-  esAdmin, //Verificar si el usuario es admin
-  [
-    //Validación de datos
-    body("nombre").notEmpty().withMessage("El nombre es obligatorio"),
-  ],
+  verificarToken,
+  esAdmin,
+  [body("nombre").notEmpty().withMessage("El nombre es obligatorio")],
   crearCategoria
 );
 
-//Ruta para obtener todas las categorías
 router.get("/obtener", obtenerCategorias);
 
-//Ruta para modificar una categoría por ID (protegida)
 router.put(
   "/modificar/:id",
   verificarToken,
   esAdmin,
   [
-    //Validación de datos - opcional porque el campo puede ser omitido, pero si está presente, requerirá que no esté vacío y será obligatorio
     body("nombre")
       .optional()
       .notEmpty()
@@ -44,10 +37,8 @@ router.put(
   modificarCategoria
 );
 
-//Ruta para eliminar una categoría por ID (protegida)
 router.delete("/eliminar/:id", verificarToken, esAdmin, eliminarCategoria);
 
-//Ruta para cambiar el estado de una categoría (activar/desactivar)
 router.put("/estado/:id", verificarToken, esAdmin, async (req, res) => {
   try {
     const { id } = req.params;
@@ -55,7 +46,7 @@ router.put("/estado/:id", verificarToken, esAdmin, async (req, res) => {
     if (!categoria)
       return res.status(404).json({ message: "Categoría no encontrada" });
 
-    categoria.estado = !categoria.estado; //Alternar estado
+    categoria.estado = !categoria.estado;
     await categoria.save();
 
     res.json({

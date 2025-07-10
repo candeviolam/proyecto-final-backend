@@ -15,7 +15,7 @@ const EncuestaSchema = new mongoose.Schema({
   },
   preguntas: [
     {
-      tipo: String, // 'texto', 'opcionUnica', 'opcionMultiple', 'escala'
+      tipo: String,
       pregunta: String,
       opciones: [String],
     },

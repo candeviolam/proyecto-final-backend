@@ -4,7 +4,6 @@ import Categoria from "../models/categoria.model.js";
 
 dotenv.config();
 
-// Listado de categorías para cargar
 const categorias = [
   { nombre: "Cultura", estado: true },
   { nombre: "Estilo de vida", estado: true },
@@ -19,19 +18,11 @@ const categorias = [
 (async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    console.log("Conectado a MongoDB");
-
-    // Insertar categorías
     for (const cat of categorias) {
-      const nueva = new Categoria({
-        nombre: cat.nombre,
-        estado: cat.estado,
-      });
+      const nueva = new Categoria(cat);
       await nueva.save();
-      console.log(`Categoría creada: ${cat.nombre}`);
     }
-
-    console.log("Todas las categorías fueron cargadas correctamente.");
+    console.log("Categorías cargadas correctamente.");
     process.exit();
   } catch (error) {
     console.error("Error al cargar categorías:", error);

@@ -1,5 +1,4 @@
-//Para definir los usuarios
-import mongoose from "mongoose"; //para trabajar con la base de datos
+import mongoose from "mongoose";
 
 const UsuarioSchema = new mongoose.Schema({
   nombre: {
@@ -21,7 +20,7 @@ const UsuarioSchema = new mongoose.Schema({
   },
   rol: {
     type: String,
-    default: "usuario", //por defecto no es admin
+    default: "usuario",
   },
 });
 

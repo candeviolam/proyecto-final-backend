@@ -13,7 +13,6 @@ const router = Router();
 
 router.get("/estadisticas", verificarToken, esAdmin, obtenerEstadisticasAdmin);
 
-//Últimas 20 respuestas
 router.get(
   "/respuestas/ultimas",
   verificarToken,
@@ -21,7 +20,6 @@ router.get(
   obtenerUltimasRespuestas
 );
 
-//Todos los usuarios
 router.get("/usuarios", verificarToken, esAdmin, obtenerUsuariosRegistrados);
 
 export default router;
