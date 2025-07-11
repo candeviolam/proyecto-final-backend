@@ -82,10 +82,10 @@ Contraseña: superadmin123
 
 ## Enlaces 
 
-Frontend: [URL_FRONTEND]
-Backend: [URL_BACKEND]
-Tablero Trello: [URL_TRELLO]
-Diseño Figma: [URL_FIGMA]
+Frontend: https://encuestas-online.netlify.app/
+Backend: https://encuestas-online.onrender.com
+Tablero Trello: https://trello.com/b/HGkI7SfI/trabajo-final-encuestas-online
+Diseño Figma: https://www.figma.com/design/d9pfdnP1MaTGFArkRtpuo9/Encuestas-Online?node-id=0-1&t=s4CW89JL9gWomPov-1
 
 ## Endpoints principales
 
