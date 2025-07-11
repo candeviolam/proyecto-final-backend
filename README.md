@@ -1,18 +1,24 @@
 # 📊 Encuestas Online - Backend
 
-Este es el backend de la aplicación Encuestas Online, desarrollado en Node.js con Express y MongoDB. Permite la gestión de encuestas, categorías y usuarios, con autenticación basada en JWT.
+Este es el backend de la aplicación Encuestas Online, desarrollada en Node.js con Express y MongoDB. 
+
+---
+
+## Obejtivo
+
+Permite la gestión de encuestas, categorías y usuarios, mediante autenticación con JWT.
 
 ---
 
 ## Funcionalidades principales
 
-- Registro e inicio de sesión de usuarios con validación.
+- Registro e inicio de sesión de usuarios con validación (administrador y usuarios normales).
 - Super admin predefinido creado al iniciar el servidor.
-- Creación, edición, activación y eliminación de encuestas.
+- Creación, edición, activación/inactivación y eliminación de encuestas.
 - Creación y administración de categorías.
-- Respuestas anónimas o con email.
-- Envío de email con el resumen de las respuestas.
-- Panel administrativo con estadísticas.
+- Respuestas a encuestas de manera anónima o con email.
+- Envío de email con el resumen de las respuestas con Nodemailer.
+- Panel administrativo con estadísticas y gráficas.
 - Rutas protegidas según rol (admin/usuario).
 - Manejo de errores detallado (404 personalizados, validaciones).
 
@@ -31,21 +37,15 @@ Este es el backend de la aplicación Encuestas Online, desarrollado en Node.js c
 
 ---
 
-## Configuración del entorno
+## Instalación y configuración
 
 1. **Clonar el repositorio:**
-
-   ```bash
    git clone https://github.com/candeviolam/proyecto-final-backend.git
-   ```
 
-2. Instalar dependencias:
+2. **Instalar dependencias:**
+   npm install
 
-```bash
-npm install
-```
-
-3. Crear un archivo .env en la raíz con el contenido (reemplazar datos reales):
+3. **Crear un archivo .env en la raíz con el contenido (reemplazar datos reales):**
    PORT=4000
    MONGO_URI=tu_mongo_uri
    ADMIN_EMAIL=admin@admin.com
@@ -54,33 +54,36 @@ npm install
    EMAIL_USER=tu_email@gmail.com
    EMAIL_PASS=tu_contraseña
 
-## Levantar el servidor en local
+4. **Levantar/iniciar el servidor:**
+   npm start
+El backend se ejecutará en http://localhost:4000 por defecto.
 
-```bash
-npm start
-```
-
-El servidor se ejecutará en http://localhost:4000.
-
-## Estructura de carpetas
-
-/src
-/controllers Lógica de la aplicación
-/middlewares Middlewares (autenticación, errores)
-/models Modelos de datos Mongoose
-/routes Rutas de la API
-/scripts Scripts para precargar datos
-app.js Instancia del servidor
+---
 
 ## Usuario administrador por defecto
 
 Email: admin@admin.com
 Contraseña: superadmin123
 
-## Enlaces útiles
+---
 
-Frontend en producción: [URL_FRONTEND]
-Backend en producción: [URL_BACKEND]
+## Estructura del proyecto
+
+/src
+   /controllers      Lógica de la aplicación
+   /middlewares      Middlewares (autenticación, errores)
+   /models           Modelos de datos Mongoose
+   /routes           Rutas de la API
+   /scripts          Scripts para precargar datos
+   app.js            Instancia del servidor
+.env                 Configuración de variables de entorno
+
+---
+
+## Enlaces 
+
+Frontend: [URL_FRONTEND]
+Backend: [URL_BACKEND]
 Tablero Trello: [URL_TRELLO]
 Diseño Figma: [URL_FIGMA]
 
