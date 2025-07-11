@@ -86,7 +86,15 @@ class Server {
 
   middlewares() {
     this.app.use(express.json());
-    this.app.use(cors());
+    this.app.use(
+      cors({
+        origin: [
+          "http://localhost:5173",
+          "https://encuestas-online.netlify.app/",
+        ],
+        credentials: true,
+      })
+    );
   }
 
   routes() {
