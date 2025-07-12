@@ -62,7 +62,8 @@ const encuestas = [
       { tipo: "texto", pregunta: "¿Por qué preferís esos géneros?" },
       {
         tipo: "escala",
-        pregunta: "¿Qué tan dispuesto estás a explorar nuevos géneros? (0-10)",
+        pregunta:
+          "¿Qué tan dispuesto/a estás a explorar nuevos géneros? (0-10)",
       },
       {
         tipo: "opcionUnica",
@@ -146,7 +147,7 @@ const encuestas = [
       {
         tipo: "escala",
         pregunta:
-          "¿Qué tan satisfecho estás con los eventos musicales de tu ciudad? (0-10)",
+          "¿Qué tan satisfecho/a estás con los eventos musicales de tu ciudad? (0-10)",
       },
       {
         tipo: "opcionUnica",
@@ -184,8 +185,8 @@ const encuestas = [
       },
       {
         tipo: "opcionUnica",
-        pregunta: "¿Preferís ver contenido solo o acompañado?",
-        opciones: ["Solo", "Acompañado"],
+        pregunta: "¿Preferís ver contenido solo/a o acompañado/a?",
+        opciones: ["Solo/a", "Acompañado/a"],
       },
       {
         tipo: "opcionMultiple",
@@ -264,7 +265,7 @@ const encuestas = [
       },
       {
         tipo: "escala",
-        pregunta: "¿Qué tan satisfecho estás con tu bienestar actual? (0-10)",
+        pregunta: "¿Qué tan satisfecho/a estás con tu bienestar actual? (0-10)",
       },
       { tipo: "texto", pregunta: "¿Cuántas horas dormís al día?" },
       {
@@ -291,8 +292,8 @@ const encuestas = [
       },
       {
         tipo: "opcionUnica",
-        pregunta: "¿Preferís viajar solo o acompañado?",
-        opciones: ["Solo", "Acompañado"],
+        pregunta: "¿Preferís viajar solo/a o acompañado/a?",
+        opciones: ["Solo/a", "Acompañado/a"],
       },
       {
         tipo: "opcionUnica",
@@ -314,6 +315,7 @@ const encuestas = [
       },
     ],
   },
+
   //TECNOLOGÍA
   {
     nombre: "Encuesta sobre telefonía celular y servicios",
@@ -321,93 +323,57 @@ const encuestas = [
     preguntas: [
       {
         tipo: "opcionUnica",
-        pregunta: "¿Cómo calificarías el servicio de Internet?",
+        pregunta: "¿Cuál es tu compañía de telefonía móvil actual?",
+        opciones: ["Claro", "Movistar", "Personal", "Tuenti", "Otra"],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Qué tipo de plan tenés contratado?",
+        opciones: ["Plan prepago", "Abono mensual", "Plan empresa", "No sé"],
+      },
+      {
+        tipo: "opcionMultiple",
+        pregunta: "¿Qué servicios adinicionales usás con tu línea móvil?",
         opciones: [
-          "Excelente",
-          "Muy bueno",
-          "Bueno",
-          "Regular",
-          "Malo",
-          "Muy malo",
+          "Internet",
+          "Llamadas ilimitadas",
+          "Mensajes de texto ilimitados",
+          "Roaming",
+          "Otro",
+        ],
+      },
+      {
+        tipo: "escala",
+        pregunta:
+          "¿Qué tan satisfecho/a estás con la velocidad de tu conexión a internet móvil? (0-10)",
+      },
+      {
+        tipo: "opcionMultiple",
+        pregunta:
+          "¿Cuáles son los principales motivos por los que cambiarías de compañía?",
+        opciones: [
+          "Mala atención al cliente",
+          "Precios altos",
+          "Cobertura insuficiente",
+          "Baja velocidad de internet",
+          "Fatla de promociones",
+          "Otro",
         ],
       },
       {
         tipo: "opcionUnica",
-        pregunta: "¿Cómo calificarías el servicio de telefonía?",
-        opciones: [
-          "Excelente",
-          "Muy bueno",
-          "Bueno",
-          "Regular",
-          "Malo",
-          "Muy malo",
-        ],
-      },
-      {
-        tipo: "opcionUnica",
-        pregunta: "¿Cómo calificarías la atención al cliente?",
-        opciones: [
-          "Excelente",
-          "Muy buena",
-          "Buena",
-          "Regular",
-          "Mala",
-          "Muy mala",
-        ],
-      },
-      {
-        tipo: "opcionUnica",
-        pregunta: "¿Qué plan tenés contratado?",
-        opciones: [
-          "Común",
-          "Súper",
-          "Internet libre",
-          "Internet y llamadas libres",
-        ],
-      },
-      {
-        tipo: "opcionUnica",
-        pregunta: "¿Cambiarías el plan?",
-        opciones: ["Sí", "No"],
-      },
-      {
-        tipo: "opcionUnica",
-        pregunta: "¿Por cuál lo cambiarías?",
-        opciones: [
-          "Común",
-          "Súper",
-          "Internet libre",
-          "Internet y llamadas libres",
-        ],
-      },
-      {
-        tipo: "opcionUnica",
-        pregunta: "¿Cambiarías de empresa de telefonía?",
-        opciones: ["Sí", "No"],
+        pregunta: "¿Con qué frecuencia tenés problemas de señal?",
+        opciones: ["Nunca", "A veces", "Frecuentemente", "Siempre"],
       },
       {
         tipo: "texto",
-        pregunta: "¿Qué modelo de celular tenés y de qué marca?",
+        pregunta:
+          "¿Qué características considerás más importantes en un servicio de telefonía móvil?",
       },
       {
-        tipo: "opcionUnica",
-        pregunta: "¿Dónde lo adquiriste?",
-        opciones: [
-          "En una tienda de esta compañía",
-          "En una tienda de otra compañía",
-          "En una tienda de celulares",
-          "Otro",
-        ],
-      },
-      {
-        tipo: "opcionUnica",
-        pregunta: "¿Por qué razón cambiaste o cambiarías tu celular?",
-        opciones: [
-          "Para tener un modelo más actualizado",
-          "Porque el anterior no funcionaba bien",
-          "Porque el anterior se rompió",
-          "Otro",
-        ],
+        tipo: "escala",
+        pregunta:
+          "¿Qué tan probable es que recomendés tu compañía a otras personas? (0-10)",
       },
     ],
   },
@@ -422,7 +388,7 @@ const encuestas = [
       },
       {
         tipo: "opcionUnica",
-        pregunta: "¿Cuántas horas al día estás conectado a Internet?",
+        pregunta: "¿Cuántas horas al día estás conectado/a a Internet?",
         opciones: ["Menos de 2 horas", "De 2 a 5 horas", "Más de 5 horas"],
       },
       {
@@ -551,8 +517,8 @@ const encuestas = [
       { tipo: "texto", pregunta: "¿Qué deporte practicás más frecuentemente?" },
       {
         tipo: "opcionUnica",
-        pregunta: "¿Preferís entrenar solo o en grupo?",
-        opciones: ["Solo", "Grupo"],
+        pregunta: "¿Preferís entrenar solo/a o en grupo?",
+        opciones: ["Solo/a", "Grupo"],
       },
       {
         tipo: "opcionMultiple",
@@ -605,52 +571,131 @@ const encuestas = [
 
   //MASCOTAS
   {
-    nombre: "Encuesta sobre cuidados de perros",
+    nombre: "Encuesta sobre el cuidado de mascotas",
     categoria: "Mascotas",
     preguntas: [
       {
-        tipo: "opcionUnica",
-        pregunta: "¿Tenés perro?",
-        opciones: ["Sí", "No"],
+        tipo: "opcionMultiple",
+        pregunta: "¿Qué tipo de mascota tenés actualmente?",
+        opciones: [
+          "Perro",
+          "Gato",
+          "Pájaro",
+          "Pez",
+          "Reptil",
+          "Roedor",
+          "Otro",
+        ],
       },
-      { tipo: "texto", pregunta: "¿Qué raza preferís?" },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Con qué frecuencia llevás a tu mascota al veterinario?",
+        opciones: [
+          "Una vez al mes",
+          "Cada 3-6 meses",
+          "Una vez al año",
+          "Solo si está enferma",
+          "Nunca",
+        ],
+      },
       {
         tipo: "opcionMultiple",
-        pregunta: "¿Qué cuidados realizás habitualmente?",
-        opciones: ["Paseos", "Veterinario", "Juegos", "Baños"],
+        pregunta: "¿Qué cuidados le propocionás regularmente a tu mascota?",
+        opciones: ["Paseos", "Peluquería", "Juegos", "Baños"],
       },
       {
         tipo: "escala",
-        pregunta: "¿Qué tan importante es tu mascota en tu vida? (0-10)",
+        pregunta:
+          "¿Qué tan importante considerás el cuidado dental de tu mascota? (0-10)",
       },
       {
         tipo: "opcionUnica",
-        pregunta: "¿Permitís que duerma en tu cama?",
-        opciones: ["Sí", "No"],
+        pregunta: "¿Qué tipo de alimento le das a tu mascota habitualmente?",
+        opciones: ["Balanceado", "Comida casera", "Mixto", "Otro"],
       },
-      { tipo: "texto", pregunta: "¿Qué consejo darías a nuevos dueños?" },
-    ],
-  },
-  {
-    nombre: "Encuesta sobre convivencia con gatos",
-    categoria: "Mascotas",
-    preguntas: [
-      { tipo: "opcionUnica", pregunta: "¿Tenés gato?", opciones: ["Sí", "No"] },
-      { tipo: "texto", pregunta: "¿Qué alimento preferís darle?" },
-      {
-        tipo: "opcionMultiple",
-        pregunta: "¿Qué costumbres tiene tu gato?",
-        opciones: ["Dormir mucho", "Jugar", "Cazar insectos", "Acompañar"],
-      },
-      { tipo: "escala", pregunta: "¿Qué tan independiente es tu gato? (0-10)" },
       {
         tipo: "opcionUnica",
-        pregunta: "¿Usa rascador?",
-        opciones: ["Sí", "No"],
+        pregunta: "¿Cuánto tiempo al día dedicás a estar con tu mascota?",
+        opciones: [
+          "Menos de 30 minutos",
+          "Entre 30 minutos y 1 hora",
+          "Entre 1 y 2 horas",
+          "Más de 2 horas",
+        ],
       },
       {
         tipo: "texto",
-        pregunta: "¿Qué es lo que más te gusta de convivir con un gato?",
+        pregunta:
+          "¿Qué dificultades has encontrado en el cuidado de tu mascota?",
+      },
+    ],
+  },
+  {
+    nombre: "Elección de mascotas",
+    categoria: "Mascotas",
+    preguntas: [
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Tenés mascota actualmente?",
+        opciones: ["Sí", "No"],
+      },
+      {
+        tipo: "opcionMultiple",
+        pregunta: "¿Qué tipo de mascota tenés o has tenido?",
+        opciones: [
+          "Perro",
+          "Gato",
+          "Pájaro",
+          "Pez",
+          "Conejo",
+          "Roedor",
+          "Reptil",
+          "Otro",
+        ],
+      },
+      {
+        tipo: "opcionUnica",
+        pregunta: "¿Qué animal considerás la mejor compañía?",
+        opciones: [
+          "Perro",
+          "Gato",
+          "Pájaro",
+          "Roedor",
+          "Reptil",
+          "Ninguno",
+          "Otro",
+        ],
+      },
+      { tipo: "texto", pregunta: "¿Cuál es tu mascota favorita?" },
+      {
+        tipo: "opcionMultiple",
+        pregunta:
+          "¿Qué tipo de animal te gustaría tener como mascota en el futuro?",
+        opciones: [
+          "Perro",
+          "Gato",
+          "Pájaro",
+          "Pez",
+          "Conejo",
+          "Roedor",
+          "Reptil",
+          "Ninguno",
+          "Otro",
+        ],
+      },
+      {
+        tipo: "texto",
+        pregunta: "¿Qué animal nunca elegirías como mascota?",
+      },
+      {
+        tipo: "escala",
+        pregunta:
+          "¿Qué tan importante considerás que es adoptar en lugar de comprar una mascota? (0-10)",
+      },
+      {
+        tipo: "escala",
+        pregunta:
+          "¿Qué tan informado/a te sentís sobre el cuidado responsable de las mascotas? (0-10)",
       },
     ],
   },
@@ -696,8 +741,8 @@ const encuestas = [
       { tipo: "escala", pregunta: "¿Qué tan a menudo cocinás en casa? (0-10)" },
       {
         tipo: "opcionUnica",
-        pregunta: "¿Preferís cocinar solo o acompañado?",
-        opciones: ["Solo", "Acompañado"],
+        pregunta: "¿Preferís cocinar solo/a o acompañado/a?",
+        opciones: ["Solo/a", "Acompañado/a"],
       },
       {
         tipo: "texto",
